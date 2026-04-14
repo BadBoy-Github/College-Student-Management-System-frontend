@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../config/api';
 import { useAuth } from '../context/AuthContext';
 
 const Marks = () => {
@@ -15,8 +15,8 @@ const Marks = () => {
 
   const fetchData = async () => {
     const [marksRes, studentsRes] = await Promise.all([
-      axios.get('http://localhost:5000/api/marks'),
-      axios.get('http://localhost:5000/api/students')
+      api.get('/marks'),
+      api.get('/students')
     ]);
     setMarks(marksRes.data);
     setStudents(studentsRes.data);
@@ -27,7 +27,7 @@ const Marks = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/api/marks', formData);
+    await api.post('/marks', formData);
     setShowModal(false);
     setFormData({ studentId: '', subject: '', marksObtained: '', maxMarks: '100', semester: '1' });
     fetchData();
@@ -35,7 +35,7 @@ const Marks = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this marks entry?')) {
-      await axios.delete(`http://localhost:5000/api/marks/${id}`);
+      await api.delete(`/marks/${id}`);
       fetchData();
     }
   };

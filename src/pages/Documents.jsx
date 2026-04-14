@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../config/api';
 
 const Documents = () => {
   const [students, setStudents] = useState([]);
@@ -7,7 +7,7 @@ const Documents = () => {
   const [generatedDoc, setGeneratedDoc] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/students').then(res => {
+    api.get('/students').then(res => {
       setStudents(res.data);
       setLoading(false);
     });
@@ -17,7 +17,7 @@ const Documents = () => {
     const studentId = document.getElementById('studentSelect').value;
     if (!studentId) return alert('Please select a student');
     
-    const res = await axios.post(`http://localhost:5000/api/documents/${type}`, { studentId });
+    const res = await api.post(`/documents/${type}`, { studentId });
     setGeneratedDoc(res.data);
   };
 

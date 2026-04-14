@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../config/api';
 import { useAuth } from '../context/AuthContext';
 
 const Students = () => {
@@ -15,7 +15,7 @@ const Students = () => {
   });
 
   const fetchStudents = async () => {
-    axios.get('http://localhost:5000/api/students', { params: { search } })
+    api.get('/students', { params: { search } })
       .then(res => { setStudents(res.data); setLoading(false); });
   };
 
@@ -25,9 +25,9 @@ const Students = () => {
     e.preventDefault();
     try {
       if (editingStudent) {
-        await axios.put(`http://localhost:5000/api/students/${editingStudent._id}`, formData);
+        await api.put(`/students/${editingStudent._id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/students', formData);
+        await api.post('/students', formData);
       }
       setShowModal(false);
       setEditingStudent(null);
@@ -46,7 +46,7 @@ const Students = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this student?')) {
-      await axios.delete(`http://localhost:5000/api/students/${id}`);
+      await api.delete(`/students/${id}`);
       fetchStudents();
     }
   };

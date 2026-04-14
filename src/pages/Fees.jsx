@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../config/api';
 import { useAuth } from '../context/AuthContext';
 
 const Fees = () => {
@@ -19,8 +19,8 @@ const Fees = () => {
 
   const fetchData = async () => {
     const [feesRes, studentsRes] = await Promise.all([
-      axios.get('http://localhost:5000/api/fees'),
-      axios.get('http://localhost:5000/api/students')
+      api.get('/fees'),
+      api.get('/students')
     ]);
     setFees(feesRes.data);
     setStudents(studentsRes.data);
@@ -36,7 +36,7 @@ const Fees = () => {
       totalAmount: Number(formData.totalAmount),
       paidAmount: Number(formData.paidAmount)
     };
-    await axios.post('http://localhost:5000/api/fees', data);
+    await api.post('/fees', data);
     setShowModal(false);
     setFormData({ studentId: '', totalAmount: '', paidAmount: '0' });
     fetchData();
@@ -44,7 +44,7 @@ const Fees = () => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/api/fees/${selectedFee._id}`, {
+    await api.put(`/fees/${selectedFee._id}`, {
       paidAmount: selectedFee.paidAmount + Number(paymentData.amount),
       paymentDates: [{ amount: Number(paymentData.amount), date: new Date() }]
     });

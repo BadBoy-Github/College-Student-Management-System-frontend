@@ -2,6 +2,28 @@
 
 React.js frontend with Vite, featuring dark theme with orange accent colors and role-based UI.
 
+## 🚀 Deployment on Vercel
+
+### Prerequisites
+- Backend deployed on Vercel first
+- Vercel account
+
+### Environment Variables
+Set these variables in Vercel Environment Settings:
+
+| Variable | Description |
+|----------|-------------|
+| `VITE_API_URL` | Your deployed backend API URL (e.g., `https://your-backend.vercel.app/api`) |
+
+### Deployment Steps
+1. Deploy backend first and get the backend URL
+2. Push frontend code to your GitHub repository
+3. Import repository in Vercel
+4. Set `VITE_API_URL` environment variable to your deployed backend URL
+5. Deploy!
+
+**Note:** This frontend is already configured for Vercel deployment with `vercel.json` file for SPA routing.
+
 ## Tech Stack
 - React 18 + Vite
 - React Router v6 for navigation

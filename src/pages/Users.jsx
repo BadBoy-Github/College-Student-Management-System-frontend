@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../config/api';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -8,7 +8,7 @@ const Users = () => {
   const [formData, setFormData] = useState({ fullName: '', email: '', password: '', role: 'TEACHER' });
 
   const fetchUsers = async () => {
-    const res = await axios.get('http://localhost:5000/api/users');
+    const res = await api.get('/users');
     setUsers(res.data);
     setLoading(false);
   };
@@ -17,7 +17,7 @@ const Users = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:5000/api/auth/register', formData);
+    await api.post('/auth/register', formData);
     setShowModal(false);
     setFormData({ fullName: '', email: '', password: '', role: 'TEACHER' });
     fetchUsers();
@@ -25,7 +25,7 @@ const Users = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
-      await axios.delete(`http://localhost:5000/api/users/${id}`);
+      await api.delete(`/users/${id}`);
       fetchUsers();
     }
   };
