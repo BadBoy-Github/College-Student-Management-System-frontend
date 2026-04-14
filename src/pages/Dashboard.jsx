@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../config/api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { FaGraduationCap, FaDollarSign, FaHourglassHalf, FaFileAlt } from 'react-icons/fa';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -24,10 +25,10 @@ const Dashboard = () => {
   if (loading) return <div>Loading dashboard...</div>;
 
   const statsCards = [
-    { label: 'Total Students', value: stats?.totalStudents || 0, icon: '🎓', color: 'var(--primary)' },
-    { label: 'Fees Collected', value: `₹${stats?.totalFeesCollected?.toLocaleString() || 0}`, icon: '💰', color: '#22c55e' },
-    { label: 'Fees Pending', value: `₹${stats?.totalFeesPending?.toLocaleString() || 0}`, icon: '⏳', color: '#ef4444' },
-    { label: 'Documents Generated', value: stats?.pendingDocuments || 0, icon: '📄', color: '#8b5cf6' },
+    { label: 'Total Students', value: stats?.totalStudents || 0, icon: <FaGraduationCap />, color: 'var(--primary)' },
+    { label: 'Fees Collected', value: `₹${stats?.totalFeesCollected?.toLocaleString() || 0}`, icon: <FaDollarSign />, color: '#22c55e' },
+    { label: 'Fees Pending', value: `₹${stats?.totalFeesPending?.toLocaleString() || 0}`, icon: <FaHourglassHalf />, color: '#ef4444' },
+    { label: 'Documents Generated', value: stats?.pendingDocuments || 0, icon: <FaFileAlt />, color: '#8b5cf6' },
   ];
 
   return (

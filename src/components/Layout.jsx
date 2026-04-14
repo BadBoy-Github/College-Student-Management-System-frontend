@@ -1,4 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import { FaGraduationCap, FaChartBar, FaUsers, FaFileAlt, FaPencilAlt, FaDollarSign } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 
 const Layout = () => {
@@ -6,12 +7,12 @@ const Layout = () => {
   const location = useLocation();
 
   const menuItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/users', label: 'Users', icon: '👥', admin: true },
-    { path: '/students', label: 'Students', icon: '🎓' },
-    { path: '/documents', label: 'Documents', icon: '📄' },
-    { path: '/marks', label: 'Marks', icon: '✏️' },
-    { path: '/fees', label: 'Fees', icon: '💰' },
+    { path: '/dashboard', label: 'Dashboard', icon: <FaChartBar /> },
+    { path: '/users', label: 'Users', icon: <FaUsers />, admin: true },
+    { path: '/students', label: 'Students', icon: <FaGraduationCap /> },
+    { path: '/documents', label: 'Documents', icon: <FaFileAlt /> },
+    { path: '/marks', label: 'Marks', icon: <FaPencilAlt /> },
+    { path: '/fees', label: 'Fees', icon: <FaDollarSign /> },
   ];
 
   const filteredMenu = menuItems.filter(item => !item.admin || user.role === 'ADMIN');
@@ -27,8 +28,8 @@ const Layout = () => {
         flexDirection: 'column'
       }}>
         <div style={{ marginBottom: '2rem' }}>
-          <h1 style={{ color: 'var(--primary)', fontSize: '1.5rem', fontWeight: 'bold' }}>
-            🎓 College MS
+          <h1 style={{ color: 'var(--primary)', fontSize: '1.5rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaGraduationCap /> College MS
           </h1>
         </div>
 
@@ -49,7 +50,7 @@ const Layout = () => {
                 background: location.pathname === item.path ? 'rgba(249, 115, 22, 0.1)' : 'transparent'
               }}
             >
-              <span>{item.icon}</span>
+              {item.icon}
               {item.label}
             </Link>
           ))}
